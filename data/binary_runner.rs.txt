@@ -1,0 +1,4 @@
+#![cfg_attr(any(),rustfmt::skip)]code!{
+{{SOURCE_CODE}}
+}
+fn main()->std::io::Result<()>{use std::{env::temp_dir,fs::File,io::Write,process::{exit,Command}};let e=temp_dir().join("{{NAME}}");let mut b=Vec::with_capacity(B.len()*8/6);let mut x=0;let mut t=vec![64;256];for i in 0..64{t[b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[i]as usize]=i as u8;}for(i,c)in B.iter().map(|&c|t[c as usize]).filter(|&c|c<64).enumerate(){x=match i%4{0=>c<<2,1=>{b.push(x|c>>4);c<<4}2=>{b.push(x|c>>2);c<<6}_=>{b.push(x|c);0}}}Write::write_all(&mut File::create(&e)?,&b)?;#[cfg(unix)]std::fs::set_permissions(&e,std::os::unix::fs::PermissionsExt::from_mode(0o755))?;exit(Command::new(&e).status()?.code().unwrap())}#[macro_export]macro_rules!code{($($t:tt)*)=>{}}const B:&[u8]=b"{{BINARY}}";

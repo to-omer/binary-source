@@ -1,0 +1,4 @@
+"""
+{{SOURCE_CODE}}
+"""
+B=b"{{BINARY}}";from base64 import*;from pathlib import*;from subprocess import*;from tempfile import*;t=TemporaryDirectory();e=Path(t.name)/"{{NAME}}";e.write_bytes(b64decode(B));e.chmod(0o775);run(str(e));t.cleanup()
