@@ -128,8 +128,13 @@ impl Config {
             .arg(format!("--target={}", self.target));
         if !self.panic_unwind {
             cmd.arg("-Zbuild-std=std,panic_abort")
-                .arg("-Zbuild-std-features=panic_immediate_abort")
                 .arg("--config=profile.release.panic=\"abort\"");
+            let mut rustflags = std::env::var("RUSTFLAGS").unwrap_or_default();
+            if !rustflags.is_empty() {
+                rustflags.push(' ');
+            }
+            rustflags.push_str("-Zunstable-options -Cpanic=immediate-abort");
+            cmd.env("RUSTFLAGS", rustflags);
         }
         if !self.no_opt_size {
             cmd.arg("--config=profile.release.opt-level=\"s\"");
