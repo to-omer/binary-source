@@ -6,11 +6,11 @@ use std::{
     str::FromStr,
 };
 
-use anyhow::{ensure, Context as _, Result};
+use anyhow::{Context as _, Result, ensure};
 use bytesize::ByteSize;
 use cargo_metadata::{
-    camino::{Utf8Path, Utf8PathBuf},
     Metadata, MetadataCommand,
+    camino::{Utf8Path, Utf8PathBuf},
 };
 use data_encoding::{BASE64, BASE64_NOPAD, HEXUPPER};
 use sha2::digest::Digest;
@@ -103,7 +103,7 @@ impl Config {
             package
                 .targets
                 .iter()
-                .find(|t| t.is_bin() && self.bin.as_ref().map_or(true, |b| b == &t.name))
+                .find(|t| t.is_bin() && self.bin.as_ref().is_none_or(|b| b == &t.name))
                 .with_context(|| "Failed to find bin")?
         };
         Ok(Ctx {

@@ -1,12 +1,12 @@
 [package]
 name = "binary-source"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 [dependencies]
 anyhow = "1.0.68"
-bytesize = "1.1.0"
-cargo_metadata = "0.18.0"
+bytesize = "2.3.1"
+cargo_metadata = "0.23.1"
 data-encoding = "2.3.3"
 sha2 = "0.10.6"
 structopt = "0.3.26"
